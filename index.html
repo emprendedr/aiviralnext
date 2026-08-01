@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aiviralnext-Aiviraljobs | Automatiza tus Ingresos con IA</title>
+    
+    <!-- Favicon temporal con emoji -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>" type="image/svg+xml">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== ESTILOS OPTIMIZADOS ===== */
+        :root {
+            --primary-color: #40e0d0;
+            --secondary-color: #FF6B6B;
+            --accent-color: #FFD700;
+            --dark-bg: #0f2027;
+            --medium-bg: #203a43;
+            --light-bg: #2c5364;
+            --text-light: #f0f8ff;
+            --text-muted: #b0e0e6;
+            --success-color: #25D366;
+            --warning-color: #FFA726;
+            --info-color: #29B6F6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark-bg), var(--medium-bg), var(--light-bg));
+            color: var(--text-light);
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        
+        /* ===== MENÚ DE BOTONES ===== */
+        .menu-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(64, 224, 208, 0.2);
+        }
+        
+        .menu-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.8rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .menu-btn:hover::before {
+            left: 100%;
+        }
+        
+        .menu-btn-primary {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            box-shadow: 0 4px 0 #0d1b3e, 0 8px 20px rgba(30, 60, 114, 0.4);
+        }
+        
+        .menu-btn-secondary {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            box-shadow: 0 4px 0 #CC5555, 0 8px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .menu-btn-tertiary {
+            background: linear-gradient(135deg, var(--success-color), #128C7E);
+            color: white;
+            box-shadow: 0 4px 0 #0FAF5F, 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+        
+        .menu-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 0 rgba(0,0,0,0.2), 0 15px 30px rgba(255, 255, 255, 0.3);
+        }
+        
+        /* ===== MODAL PARA VIDEOS ===== */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .video-modal.active {
+            display: flex;
+        }
+        
+        .video-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            background: var(--dark-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            animation: slideUp 0.4s ease;
+        }
+        
+        .video-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: var(--medium-bg);
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .video-modal-title {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .video-modal-close {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.8rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .video-modal-close:hover {
+            background: rgba(255, 107, 107, 0.2);
+            color: var(--secondary-color);
+            transform: rotate(90deg);
+        }
+        
+        .video-modal-body {
+            padding: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* ===== HEADER OPTIMIZADO ===== */
+        .hero-section {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(64, 224, 208, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(64, 224, 208, 0.5);
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .sub-tagline {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        /* ===== VIDEO ANTES DEL BOTÓN ===== */
+        .pre-button-video {
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+        
+        /* ===== BOTONES PRINCIPALES MEJORADOS ===== */
+        .btn {
+            display: inline-block;
+            padding: 1.1rem 2.8rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            margin: 0.5rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2), 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.7s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary-color), #FF8E53, var(--accent-color));
+            background-size: 200% 200%;
+            color: white;
+            animation: gradientShift 3s ease infinite, pulseGlow 2s ease-in-out infinite;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--success-color), #128C7E, #25D366);
+            background-size: 200% 200%;
+            color: white;
+            animation: gradientShift 4s ease infinite;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-cta {
+            background: linear-gradient(135deg, #FF0080, #FF8C00, #40E0D0);
+            background-size: 200% 200%;
+            color: white;
+            animation: gradientShift 5s ease infinite, pulseGlow 1.5s ease-in-out infinite;
+            font-size: 1.3rem;
+            padding: 1.3rem 3.5rem;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 0 12px 0 rgba(0, 0, 0, 0.2), 0 25px 60px rgba(0, 0, 0, 0.5);
+            animation-play-state: paused;
+        }
+        
+        .btn:active {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2), 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { 
+                box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2), 0 15px 40px rgba(255, 107, 107, 0.5);
+            }
+            50% { 
+                box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2), 0 15px 50px rgba(255, 107, 107, 0.8);
+            }
+        }
+        
+        /* ===== CONTADOR PROFESIONAL (24 HORAS) - CORREGIDO ===== */
+        .countdown-container {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2.5rem auto;
+            text-align: center;
+            border: 2px solid var(--secondary-color);
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .countdown-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #FF6B6B, #FFD700, #40e0d0);
+            background-size: 200% 100%;
+            animation: gradientShift 3s infinite alternate;
+        }
+        
+        .countdown-title {
+            color: var(--accent-color);
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .countdown-subtitle {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-unit {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.2rem 0.8rem;
+            min-width: 100px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .countdown-unit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-color);
+        }
+        
+        .countdown-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1;
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .bonus-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.15));
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-top: 1.8rem;
+            border: 1px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bonus-box::before {
+            content: '🎁';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+        
+        .bonus-title {
+            color: var(--accent-color);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+        
+        .bonus-list {
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto;
+            list-style-type: none;
+        }
+        
+        .bonus-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1.05rem;
+        }
+        
+        .bonus-list li:before {
+            content: "✓";
+            color: #25D366;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* ===== SECCIÓN DE ESTRUCTURA DE PAGOS ===== */
+        .payment-structure {
+            background: linear-gradient(135deg, rgba(64, 224, 208, 0.1), rgba(32, 58, 67, 0.8));
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin: 2.5rem 0;
+            border: 2px solid rgba(64, 224, 208, 0.3);
+        }
+        
+        .payment-notice {
+            background: rgba(255, 215, 0, 0.15);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent-color);
+            text-align: center;
+        }
+        
+        .payment-notice h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+        }
+        
+        .payment-levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .level-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-top: 4px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .level-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .level-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .level-description {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .level-commission {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        
+        /* ===== SECCIONES UNIFICADAS ===== */
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.7rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* ===== SECCIÓN DE OPORTUNIDAD ===== */
+        .opportunity-card {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(255, 193, 7, 0.15));
+            border: 2px solid var(--secondary-color);
+            text-align: center;
+            animation: pulseBorder 3s infinite alternate;
+        }
+        
+        @keyframes pulseBorder {
+            0% { border-color: var(--secondary-color); box-shadow: 0 0 20px rgba(255, 107, 107, 0.2); }
+            50% { border-color: var(--accent-color); box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
+            100% { border-color: var(--secondary-color); box-shadow: 0 0 20px rgba(255, 107, 107, 0.2); }
+        }
+        
+        /* ===== VIDEO RESPONSIVE ===== */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            margin: 1rem 0;
+            background: #000;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* ===== BENEFICIOS ===== */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .benefit-card {
+            background: rgba(32, 58, 67, 0.7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* ===== TABLA SIMPLIFICADA ===== */
+        .income-summary {
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .highlight-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-align: center;
+            margin: 1rem 0;
+            animation: countPulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes countPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        
+        /* ===== CALL TO ACTION ===== */
+        .cta-container {
+            text-align: center;
+            background: linear-gradient(to right, #1d4350, #2c5364);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(64, 224, 208, 0.5);
+        }
+        
+        .cta-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-title {
+            font-size: 2.2rem;
+            color: #7fffd4;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(127, 255, 212, 0.5);
+        }
+        
+        .cta-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-weight: 500;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(64, 224, 208, 0.2);
+            color: #87ceeb;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== IMAGEN PRINCIPAL ===== */
+        .main-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            display: block;
+            border-radius: 15px;
+            border: 3px solid rgba(64, 224, 208, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .main-title { font-size: 2rem; }
+            .tagline { font-size: 1.1rem; }
+            .sub-tagline { font-size: 1rem; padding: 0.8rem; }
+            .section { padding: 1.5rem; }
+            .section-title { font-size: 1.5rem; }
+            .cta-title { font-size: 1.8rem; }
+            .btn { width: 100%; margin: 0.5rem 0; padding: 1rem 1.5rem; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .countdown-unit { min-width: 80px; padding: 1rem 0.5rem; }
+            .countdown-number { font-size: 2.2rem; }
+            .menu-buttons { flex-direction: column; }
+            .menu-btn { width: 100%; margin-bottom: 0.5rem; }
+            .payment-levels { grid-template-columns: 1fr; }
+            .video-modal-content { width: 95%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- MODAL PARA VIDEOS -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <div class="video-modal-header">
+                <div class="video-modal-title" id="modalTitle">Grabación de Zoom</div>
+                <button class="video-modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="video-modal-body">
+                <div class="video-container">
+                    <iframe id="modalVideo" 
+                            src="" 
+                            title="Video Player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- IMAGEN PRINCIPAL -->
+        <img src="https://github.com/emprendedr/aiviralana/blob/main/E8F3902F-4F7C-4ADF-9618-5CD94E8BD807.png?raw=true" 
+             alt="Aiviralnext-Aiviraljobs" 
+             class="main-image">
+        
+        <!-- MENÚ DE BOTONES -->
+        <div class="menu-buttons">
+            <a href="https://aiviraldownline.com/lc.php?id=ROCA25" 
+               class="menu-btn menu-btn-primary" 
+               target="_blank">
+                🇺🇸 English Presentation
+            </a>
+            
+            <button class="menu-btn menu-btn-secondary" id="zoomVideoBtn">
+                📹 Grabación de Zoom
+            </button>
+            
+            <a href="https://www.canva.com/design/DAG8PbAxxn8/M3aOVhlhYAp4399dkuZDcw/view?utm_content=DAG8PbAxxn8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h786681e006" 
+               class="menu-btn menu-btn-tertiary" 
+               target="_blank">
+                📄 PDF de Presentación
+            </a>
+        </div>
+        
+        <!-- HERO SECTION OPTIMIZADA -->
+        <header class="hero-section">
+            <div class="hero-content">
+                <h1 class="main-title">Aiviralnext-Aiviraljobs</h1>
+                <p class="tagline">Automatiza tus ingresos, tu negocio, tu contenido, tu marca personal con Inteligencia Artificial</p>
+                <p class="sub-tagline">
+                    Sin experiencia necesaria. Emily (tu IA) hace el trabajo repetitivo mientras tú generas ingresos automáticos.
+                </p>
+                
+                <!-- VIDEO ANTES DEL BOTÓN -->
+                <div class="pre-button-video">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/A8bGvBjWgkw?si=vAns1ECTp2TFOVOv"
+                                title="Como Funciona este Sistema"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+                
+                <!-- Botón principal mejorado con nuevo enlace -->
+                <a href="https://wealthstepbystep.net/soar/home.asp?VB5618-es" 
+                   class="btn btn-primary" 
+                   target="_blank">
+                    🚀 COMIENZA GRATIS POR 7 DÍAS
+                </a>
+            </div>
+        </header>
+
+        <!-- CONTADOR PROFESIONAL (24 HORAS) - CORREGIDO -->
+        <div class="countdown-container">
+            <h3 class="countdown-title">⏳ OFERTA EXCLUSIVA - 24 HORAS LIMITE</h3>
+            <p class="countdown-subtitle">Únete ahora y asegura tu posición + todos los bonos exclusivos antes de que se cierre esta oportunidad</p>
+            
+            <div class="countdown-timer">
+                <div class="countdown-unit">
+                    <div class="countdown-number" id="countdown-hours">24</div>
+                    <div class="countdown-label">Horas</div>
+                </div>
+                <div class="countdown-unit">
+                    <div class="countdown-number" id="countdown-minutes">00</div>
+                    <div class="countdown-label">Minutos</div>
+                </div>
+                <div class="countdown-unit">
+                    <div class="countdown-number" id="countdown-seconds">00</div>
+                    <div class="countdown-label">Segundos</div>
+                </div>
+            </div>
+            
+            <div class="bonus-box">
+                <h4 class="bonus-title">🎁 BONO EXCLUSIVO POR UNIRTE DENTRO DE 24 HORAS</h4>
+                <p style="text-align: center; margin-bottom: 1rem; color: var(--accent-color); font-weight: 600;">
+                    Acceso a 5 días de clase GRATIS donde aprenderás:
+                </p>
+                <ul class="bonus-list">
+                    <li>Cómo usar la IA correctamente para automatizar tu negocio</li>
+                    <li>Configurar tus redes sociales con herramientas de marketing avanzadas</li>
+                    <li>Conocer todos los recursos dentro del sistema para escalar tu negocio</li>
+                    <li>Estrategias para llevar tu marca personal al siguiente nivel</li>
+                    <li>Y mucho más que solo verás cuando estés adentro del sistema</li>
+                </ul>
+                <p style="text-align: center; margin-top: 1.5rem; font-style: italic; color: var(--text-light); font-weight: 600;">
+                    Este bono solo está disponible para los que actúen dentro de las próximas 24 horas
+                </p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE ESTRUCTURA DE PAGOS -->
+        <section class="payment-structure">
+            <h2 class="section-title">💰 Estructura de Pagos de la Matriz</h2>
+            
+            <div class="payment-notice">
+                <h3>⚠️ IMPORTANTE: Como miembro GRATUITO, ya ocupas una posición en la matriz</h3>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    Una vez que te actualices, desbloqueas toda la estructura de ingresos, incluyendo la capacidad de ganar durante tu prueba de 7 días.
+                </p>
+            </div>
+            
+            <div class="payment-levels">
+                <div class="level-card">
+                    <div class="level-number">Nivel 1</div>
+                    <div class="level-description">Por cada miembro directo</div>
+                    <div class="level-commission">$10 / mes</div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                        (Con 3 miembros = $30/mes - ¡Tu membresía se paga sola!)
+                    </p>
+                </div>
+                
+                <div class="level-card">
+                    <div class="level-number">Niveles 2-7</div>
+                    <div class="level-description">Por cada miembro en tu red</div>
+                    <div class="level-commission">$2 / mes</div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                        (Ganas comisiones de matriz del nivel 1 al 7 sin referidos personales)
+                    </p>
+                </div>
+                
+                <div class="level-card">
+                    <div class="level-number">Nivel 8</div>
+                    <div class="level-description">Comisiones especiales</div>
+                    <div class="level-commission">$3 / miembro</div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                        (Requiere solo 3 referidos personales para calificar)
+                    </p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="https://wealthstepbystep.net/soar/home.asp?VB5618-es" 
+                   class="btn btn-cta" 
+                   target="_blank">
+                    🚀 OCUPAR MI POSICIÓN EN LA MATRIZ
+                </a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE OPORTUNIDAD ÚNICA -->
+        <section class="section opportunity-card">
+            <h2 class="section-title">🔥 Oportunidad Exclusiva</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 1.5rem;">
+                Solo 10 personas serán seleccionadas para este lanzamiento. 
+                <strong>Sé uno de los primeros 3 para recibir derrame automático.</strong>
+            </p>
+            <div style="text-align: center;">
+                <a href="https://wealthstepbystep.net/soar/home.asp?VB5618-es" 
+                   class="btn btn-primary" 
+                   target="_blank">
+                    🎯 QUIERO SER UNO DE LOS 10
+                </a>
+            </div>
+        </section>
+
+        <!-- BENEFICIOS CLAROS -->
+        <section class="section">
+            <h2 class="section-title">✨ Lo que lograrás</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>🤖 Automatización Total</h3>
+                    <p>Emily atiende prospectos 24/7, explica el sistema y guía registros automáticamente.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>💰 Ingresos Residuales</h3>
+                    <p>Matriz 3x8 que genera hasta $26,265/mes con spillover automático.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>🚀 Comienzo Rápido</h3>
+                    <p>7 días GRATIS. Sin tarjeta de crédito. Sin compromisos.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>👩‍💼 Soporte Personal</h3>
+                    <p>Ana Romo te guía personalmente desde el inicio.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- INGRESOS SIMPLIFICADOS -->
+        <section class="section">
+            <h2 class="section-title">💵 Tu Potencial de Ingresos</h2>
+            
+            <div class="income-summary">
+                <h3 style="color: var(--accent-color); text-align: center; margin-bottom: 1rem;">
+                    Con solo 3 personas en tu nivel 1:
+                </h3>
+                <div class="highlight-number">$30/mes</div>
+                <p style="text-align: center;">(Tu membresía se paga sola)</p>
+            </div>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+                    <strong>Potencial completo de matriz 3x8:</strong>
+                </p>
+                <div class="highlight-number">$26,265/mes</div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    *Con spillover automático del sistema
+                </p>
+            </div>
+        </section>
+
+        <!-- CONTACTO DIRECTO -->
+        <section class="section" style="text-align: center;">
+            <h2 class="section-title">👋 ¿Tienes dudas?</h2>
+            <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">
+                Habla directamente con <strong style="color: var(--accent-color);">Ana Romo</strong>, tu guía personal.
+            </p>
+            <a href="https://wa.me/524776152686?text=¡Hola Ana! Quiero comenzar con Aiviralnext-Aiviraljobs" 
+               class="btn btn-secondary" 
+               target="_blank">
+                💬 WHATSAPP CON ANA
+            </a>
+        </section>
+
+        <!-- CALL TO ACTION FINAL -->
+        <div class="cta-container">
+            <div class="cta-content">
+                <h2 class="cta-title">¡Tu Momento es Ahora!</h2>
+                <p class="cta-subtitle">
+                    Posiciónate en los primeros lugares. La matriz se llena rápido y los mejores spots son limitados.
+                </p>
+                
+                <a href="https://wealthstepbystep.net/soar/home.asp?VB5618-es" 
+                   class="btn btn-cta" 
+                   target="_blank">
+                    🚀 ACTIVAR PRUEBA GRATIS + 5 DÍAS DE CLASE BONO
+                </a>
+                
+                <p style="color: var(--accent-color); margin-top: 1.5rem; font-style: italic; font-size: 1.1rem;">
+                    100% Gratis • 7 Días • Sin Tarjeta • + Bono Exclusivo 24h
+                </p>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>© 2025 Aiviralnext-Aiviraljobs. Todos los derechos reservados.</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem; color: #87ceeb;">
+                Este sitio opera de manera independiente.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // CONTADOR REGRESIVO DE 24 HORAS - CORREGIDO
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar el tiempo límite (24 horas desde ahora)
+            const countdownDuration = 24 * 60 * 60 * 1000; // 24 horas en milisegundos
+            const endTime = new Date().getTime() + countdownDuration;
+            
+            // Elementos del contador
+            const hoursElement = document.getElementById('countdown-hours');
+            const minutesElement = document.getElementById('countdown-minutes');
+            const secondsElement = document.getElementById('countdown-seconds');
+            const countdownContainer = document.querySelector('.countdown-container');
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = endTime - now;
+                
+                // Si el tiempo ya terminó
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    hoursElement.textContent = '00';
+                    minutesElement.textContent = '00';
+                    secondsElement.textContent = '00';
+                    
+                    // Cambiar mensaje
+                    document.querySelector('.countdown-title').innerHTML = "⏰ ¡TIEMPO AGOTADO!";
+                    document.querySelector('.countdown-subtitle').textContent = "La oferta de 24 horas ha finalizado. Contacta a Ana para verificar disponibilidad.";
+                    
+                    // Cambiar estilo del contenedor
+                    countdownContainer.style.borderColor = '#FF0000';
+                    countdownContainer.style.background = 'rgba(255, 0, 0, 0.1)';
+                    
+                    // Cambiar mensaje del bono
+                    const bonusBox = document.querySelector('.bonus-box');
+                    bonusBox.innerHTML = `
+                        <h4 class="bonus-title">⏰ OFERTA FINALIZADA</h4>
+                        <p style="text-align: center; margin-bottom: 1rem; color: #FF6B6B; font-weight: 600;">
+                            El bono de 24 horas ya no está disponible
+                        </p>
+                        <p style="text-align: center; color: var(--text-light);">
+                            Contacta a Ana para verificar si aún hay disponibilidad
+                        </p>
+                        <div style="text-align: center; margin-top: 1.5rem;">
+                            <a href="https://wa.me/524776152686?text=¡Hola Ana! Quiero saber si aún hay disponibilidad para Aiviralnext-Aiviraljobs" 
+                               class="btn btn-secondary" 
+                               target="_blank"
+                               style="padding: 0.8rem 1.5rem; font-size: 1rem;">
+                                💬 Contactar a Ana
+                            </a>
+                        </div>
+                    `;
+                    
+                    return;
+                }
+                
+                // Calcular horas, minutos y segundos
+                const hours = Math.floor(distance / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Actualizar elementos
+                hoursElement.textContent = hours.toString().padStart(2, '0');
+                minutesElement.textContent = minutes.toString().padStart(2, '0');
+                secondsElement.textContent = seconds.toString().padStart(2, '0');
+                
+                // Efectos visuales según el tiempo restante
+                if (hours < 6) {
+                    countdownContainer.style.borderColor = '#FF6B6B';
+                    countdownContainer.style.boxShadow = '0 10px 30px rgba(255, 107, 107, 0.5)';
+                    
+                    if (hours < 3) {
+                        // Efecto de parpadeo para las últimas 3 horas
+                        const blink = Math.floor(Date.now() / 500) % 2 === 0;
+                        hoursElement.style.color = blink ? '#FF6B6B' : '#FFD700';
+                        minutesElement.style.color = blink ? '#FF6B6B' : '#FFD700';
+                        secondsElement.style.color = blink ? '#FF6B6B' : '#FFD700';
+                        
+                        if (hours < 1) {
+                            // Efecto más intenso para la última hora
+                            countdownContainer.style.animation = 'pulseBorder 0.5s infinite alternate';
+                        }
+                    }
+                }
+            }
+            
+            // Actualizar inmediatamente y luego cada segundo
+            updateCountdown();
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            
+            // Animaciones para números de ingresos
+            const numbers = document.querySelectorAll('.highlight-number');
+            numbers.forEach(number => {
+                const target = parseInt(number.textContent.replace(/[^0-9]/g, ''));
+                let current = 0;
+                const increment = target / 50;
+                
+                const updateNumber = () => {
+                    if (current < target) {
+                        current += increment;
+                        if (current > target) current = target;
+                        number.textContent = `$${Math.round(current).toLocaleString()}/mes`;
+                        requestAnimationFrame(updateNumber);
+                    }
+                };
+                
+                // Activar cuando sea visible
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateNumber();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(number);
+            });
+            
+            // ===== MODAL PARA VIDEO DE ZOOM =====
+            const zoomVideoBtn = document.getElementById('zoomVideoBtn');
+            const videoModal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            const modalTitle = document.getElementById('modalTitle');
+            const closeModal = document.getElementById('closeModal');
+            
+            // Configurar el botón de video de Zoom
+            zoomVideoBtn.addEventListener('click', function() {
+                modalTitle.textContent = 'Grabación de la Video Llamada de Zoom';
+                modalVideo.src = 'https://www.youtube.com/embed/7_5J0zVVJeU?autoplay=1&rel=0';
+                videoModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Cerrar modal
+            closeModal.addEventListener('click', function() {
+                videoModal.classList.remove('active');
+                modalVideo.src = '';
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Cerrar modal al hacer clic fuera
+            videoModal.addEventListener('click', function(e) {
+                if (e.target === videoModal) {
+                    videoModal.classList.remove('active');
+                    modalVideo.src = '';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Cerrar modal con tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                    videoModal.classList.remove('active');
+                    modalVideo.src = '';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Efectos adicionales para botones
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.08)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Tracking de clicks
+            const allButtons = document.querySelectorAll('.btn, .menu-btn');
+            allButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const buttonText = this.textContent.trim();
+                    console.log(`Click en botón: ${buttonText}`);
+                    // Aquí puedes agregar Google Analytics u otro tracking
+                });
+            });
+        });
+    </script>
+</body>
+</html>
